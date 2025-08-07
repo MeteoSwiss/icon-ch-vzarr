@@ -1,0 +1,33 @@
+[project]
+name = "icon-ch-vzarr"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Francesco Zanetta", email = "zanetta.francesco@meteoswiss.ch" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "earthkit-data>=0.16.0",
+    "eccodes==2.39.1",
+    "eccodes-cosmo-resources-python>=2.38.3.1",
+    "kerchunk>=0.2.9",
+    "scipy>=1.16.1",
+    "virtualizarr>=2.0.1",
+    "zarr>=3.1.1",
+]
+
+[project.scripts]
+icon-ch1-vzarr = "icon_ch_vzarr:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "debugpy>=1.8.15",
+    "fastparquet>=2024.11.0",
+    "icechunk>=1.1.1",
+    "ipykernel>=6.30.1",
+]
