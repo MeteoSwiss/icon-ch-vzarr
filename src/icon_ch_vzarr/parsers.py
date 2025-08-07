@@ -7,7 +7,6 @@ import logging
 import earthkit.data as ekd
 from earthkit.data.readers.grib.codes import GribField
 import numpy as np
-from obstore.store import LocalStore
 from virtualizarr.manifests import (
     ChunkEntry,
     ChunkManifest,
@@ -19,9 +18,8 @@ from virtualizarr.manifests.store import ObjectStoreRegistry
 from virtualizarr.types import ChunkKey
 from virtualizarr.manifests.utils import create_v3_array_metadata
 import xarray as xr
-from zarr.registry import register_codec
 
-from icon_ch_vzarr.codec import CODEC_ID, EccodesGribCodec
+from icon_ch_vzarr.codec import EccodesCodec
 
 
 LOG = logging.getLogger(__name__)
@@ -72,7 +70,7 @@ class IconChParser:
     def __call__(self, url: str, registry: ObjectStoreRegistry) -> ManifestStore:
         
         # NOTE: we need to register this here when using multiprocessing
-        register_codec(CODEC_ID, EccodesGribCodec)
+        # register_codec(CODEC_ID, EccodesCodec)
 
         # access the file's contents, e.g. using the ObjectStore instance in the registry
         store, path_in_store = registry.resolve(url)
@@ -271,7 +269,7 @@ def _variable_array(
         The ManifestArray containing the variable data.
     """
     
-    codec = EccodesGribCodec(var=param).to_dict()
+    codec = EccodesCodec(var=param).to_dict()
     
     metadata = create_v3_array_metadata(
         shape=shape,
@@ -317,7 +315,7 @@ def _file_coordinate_array(
     ManifestArray
         The ManifestArray containing the file coordinate data.
     """
-    codec = EccodesGribCodec(var=param).to_dict()
+    codec = EccodesCodec(var=param).to_dict()
     metadata = create_v3_array_metadata(
         shape=tuple(shape),
         chunk_shape=tuple(shape),
@@ -356,7 +354,7 @@ def _level_coordinate_array(
     ManifestArray
         The ManifestArray containing the vertical level coordinate data.
     """
-    codec = EccodesGribCodec(var=coord).to_dict()
+    codec = EccodesCodec(var=coord).to_dict()
     sorted_coord_values = dict(
         sorted(chunk_entries.items(), key=lambda item: float(item[0]))
     )
@@ -387,8 +385,6 @@ def _chunk_entry_from_field(field: GribField) -> ChunkEntry:
         length=field._length
     )
 
-
-register_codec(CODEC_ID, EccodesGribCodec)
 
 __all__ = [
     "IconChParser",

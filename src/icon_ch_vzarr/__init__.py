@@ -1,8 +1,8 @@
-from icon_ch_vzarr.codec import EccodesGribCodec
+from icon_ch_vzarr.codec import EccodesCodec
 from icon_ch_vzarr.parsers import IconChParser
 
 __all__ = [
-    "EccodesGribCodec",
+    "EccodesCodec",
     "IconChParser",
     "extract_metadata",
     "create_file_coordinates_arrays",

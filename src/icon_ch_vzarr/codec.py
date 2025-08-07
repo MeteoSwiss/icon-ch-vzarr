@@ -15,7 +15,7 @@ LEVEL_COORDINATES = {
 }
 """Coordinates for 3D variables"""
 
-CODEC_ID = "eccodes_grib_codec"
+CODEC_ID = "eccodes"
 
 # Time unit conversion constants
 SECONDS_PER_UNIT = {
@@ -26,7 +26,7 @@ SECONDS_PER_UNIT = {
 }
 
 
-class EccodesGribCodec(ArrayBytesCodec):
+class EccodesCodec(ArrayBytesCodec):
     """Transform GRIB2 bytes into zarr arrays using ecCodes."""
 
     var: str | None
