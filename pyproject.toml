@@ -28,6 +28,7 @@ build-backend = "hatchling.build"
 dev = [
     "debugpy>=1.8.15",
     "fastparquet>=2024.11.0",
+    "h5py>=3.14.0",
     "icechunk>=1.1.1",
     "ipykernel>=6.30.1",
 ]
